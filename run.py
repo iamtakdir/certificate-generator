@@ -1,7 +1,9 @@
 import os
 import cv2
+import uuid
 
 list_of_names = []
+
 
 
 def delete_old_data():
@@ -18,9 +20,11 @@ def cleanup_data():
 def generate_certificates():
 
    for index, name in enumerate(list_of_names):
-      certificate_template_image = cv2.imread("certificate-template.jpg")
-      cv2.putText(certificate_template_image, name.strip(), (815,1500), cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 250), 5, cv2.LINE_AA)
-      cv2.imwrite("generated-certificates/{}.jpg".format(name.strip()), certificate_template_image)
+      id = uuid.uuid4()
+      certificate_template_image = cv2.imread("certificate-template_python.png")
+      cv2.putText(certificate_template_image, name.strip(), (665,781), cv2.FONT_HERSHEY_SCRIPT_COMPLEX, 3, (43, 43, 43), 3, cv2.LINE_AA)
+      cv2.putText(certificate_template_image, str(id), (551,1206), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (43, 43, 43), 1, cv2.LINE_AA)
+      cv2.imwrite("generated-certificates/{}.png".format(id), certificate_template_image)
       print("Processing {} / {}".format(index + 1,len(list_of_names)))
       
 def main():
